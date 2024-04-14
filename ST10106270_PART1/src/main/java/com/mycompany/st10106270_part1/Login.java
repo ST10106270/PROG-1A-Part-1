@@ -90,13 +90,13 @@ public Login(){
            sb = new StringBuilder();
            if (checkUserName (username))
            {
-               sb.append("Successful Login"); //holding the message
+               sb.append("Username successfully captured"); //holding the message
                JOptionPane.showMessageDialog(null, sb);
                break;
            }
            else {
                sb = new StringBuilder(); //clearing the old sb
-               sb.append("Unsuccessful Login");
+               sb.append("Username is not correctly formatted, please ensure that your username contains an underscore and is no more than 5 characters in length.");
                JOptionPane.showMessageDialog(null, sb);
                
            }
@@ -106,13 +106,13 @@ public Login(){
            sb = new StringBuilder();
            if (checkPasswordComplexity (password))
            {
-               sb.append("Password successful"); //holding the message
+               sb.append("Password successfully captured"); //holding the message
                JOptionPane.showMessageDialog(null, sb);
                break;
            }
            else {
                sb = new StringBuilder(); //clearing the old sb
-               sb.append("Password unsuccessful");
+               sb.append("Password is not correctly formatted, please ensure that the password contains at least 8 characters, a capital letter, a number and a special character.");
                JOptionPane.showMessageDialog(null, sb);
            }
        }
@@ -121,9 +121,36 @@ public Login(){
        
    return sb.toString();
    }
-  
+   
+   //login user with provided credentials
+   public boolean loginUser(String enteredUsername, String enteredPassword) {
+       return enteredUsername.equals(username)&& enteredPassword.equals(password);
+   }
+  //Return login status message
+   public String returnLoginStatus(boolean loggedIn) {
+       if (loggedIn) {
+           return "Welcome " + firstName + ", " + lastName + ". It is great to see you again. ";
+       }
+       else {
+           return "Username or password incorrect, please try again.";
+       }
+   }
+  //method to perform login
+   public boolean performLogin() {
+       String enteredUsername = JOptionPane.showInputDialog(null, "Enter username:");
+       String enteredPassword = JOptionPane.showInputDialog(null, "Enter password:");
+       
+       if (loginUser(enteredUsername, enteredPassword)){
+           JOptionPane.showMessageDialog(null, returnLoginStatus(true));
+           return true;
+       }
+       else {
+           JOptionPane.showMessageDialog(null, returnLoginStatus(false));
+           return false;
+       }
+   }
 }
-
+     
 
         
     
